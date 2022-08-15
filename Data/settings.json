@@ -1,0 +1,16 @@
+{
+  "prefix": "=",
+  "privileged role": "Privileged",
+  "time_to_draft_phase_in_seconds": 1000,
+  "league_roles": [
+    "GCh",
+    "Champ",
+    "Diamond",
+    "Platinum",
+    "newbie (below platinum)"
+  ],
+  "guilds":
+    [
+
+    ]
+}

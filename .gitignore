@@ -1,0 +1,7 @@
+# file for test some shit
+sup.py
+Cogs/Sup.py
+# cache of compilations
+.idea
+**__pycache__
+Data/StateOfEveryone.db
