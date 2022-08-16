@@ -1,8 +1,8 @@
 from discord.ext import commands
 
 from BRBot import BRBot
-from Utils.MessageLib import reaction
-from Utils.JsonHandler import change_prefix_in_data, settings
+from Utils.MessageLib import reaction, custom_embed
+from Utils.JsonHandler import change_prefix_in_data, settings, change_lang_in_data
 
 
 class AdminCog(commands.Cog):
@@ -20,28 +20,34 @@ class AdminCog(commands.Cog):
     @commands.command()
     @commands.has_role(settings["privileged role"])
     async def change_prefix(self, ctx, newPrefix: str = None, *args):
-        """
-        Action of this command are locates in their name.
-        """
         if ctx.author != self.bot.user:
             if newPrefix is None:
                 await reaction(ctx, False)
-                await ctx.reply("You must give new prefix to change old!")
+                await ctx.respond(embed=custom_embed("chp1"))
             elif newPrefix == "/":
                 await reaction(ctx, False)
-                await ctx.reply("This is application command prefix, " +
-                                "you already can use it to interact with most of bots")
+                await ctx.respond(embed=custom_embed("chp2"))
             elif args:
                 await reaction(ctx, False)
-                await ctx.reply("New prefix mustn't include spaces!")
+                await ctx.respond(embed=custom_embed("chp3"))
             else:
                 await reaction(ctx, True)
                 change_prefix_in_data(newPrefix)
                 self.bot.command_prefix = newPrefix
                 await self.bot.change_presence_to_help()
 
-    # TO DO: listener of connection, that add new guild to "settings". This needier for auto-location
-    # system and slash-commands
+    @commands.command()
+    @commands.has_role(settings["privileged role"])
+    async def change_language(self, ctx, lang):
+        if lang not in settings["support_languages"]:
+            await reaction(ctx, False)
+            await ctx.respond(embed=custom_embed("chl1", ", ".join(settings["support_languages"])))
+        else:
+            await reaction(ctx, True)
+            change_lang_in_data(lang)
+            await ctx.respond(embed=custom_embed("chl2"))
+
+    # TO DO: listener of connection, that add new guild to "settings". This needier for slash-commands
 
 
 def setup(bot: BRBot) -> None:

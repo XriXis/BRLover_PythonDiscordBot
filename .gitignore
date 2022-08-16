@@ -4,4 +4,5 @@ Cogs/Sup.py
 # cache of compilations
 .idea
 **__pycache__
+# hidden-league data
 Data/StateOfEveryone.db

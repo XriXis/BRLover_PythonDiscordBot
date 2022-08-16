@@ -2,7 +2,7 @@ from discord.ext import commands, bridge
 
 from BRBot import BRBot
 from Utils.JsonHandler import settings
-from Utils.MessageLib import reaction
+from Utils.MessageLib import reaction, custom_embed
 
 
 class StateCog(commands.Cog):
@@ -19,15 +19,13 @@ class StateCog(commands.Cog):
             lvl: int = None,
             currentExp: int = None,
             *args):
+        """
+         TO DO: this documentation
+        """
         if ctx.author != self.bot.user:
             if any(x is None for x in (games, winRate, lvl, currentExp)):
                 await reaction(ctx, False)
-                await ctx.respond(f"""
-                    You don't take some arguments
-                    **{settings['prefix']}{self.my_true_state.name}** take arguments in following order:\n
-                    1. games\n2. winrate\n3. lvl\n4. currentExp>\n
-                    Like this: *{settings['prefix']}my_true_state 200 42 19 3000*"""
-                                  )
+                await ctx.respond(embed=custom_embed("mts1", *[settings["prefix"]] * 2))
             else:
                 await reaction(ctx, True)
                 lvlExp = [255, 316, 393, 486, 604, 754, 938, 1165, 1443,
@@ -41,8 +39,7 @@ class StateCog(commands.Cog):
                 wins = winExp / 200
                 trueGames = wins + loose
                 trueWinRates = (wins / trueGames) * 1000 // 1 / 10
-                await ctx.respond("Your true state on this character is:" +
-                                  f"\n{trueGames // 1} matches, with {trueWinRates}% winrate")
+                await ctx.respond("mts2", str(trueGames // 1), str(trueWinRates))
 
 
 def setup(bot: BRBot) -> None:

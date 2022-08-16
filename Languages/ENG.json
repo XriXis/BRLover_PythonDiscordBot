@@ -1,0 +1,83 @@
+{
+  "help":
+  {
+    "change_prefix":
+            "**need privileged role for use*\n\n Action of this command are locates in their name.",
+    "draft":
+            "**need privileged role for use*\n\nThis command realise draft system, now it works like awaitable private chat, so you can run into some troubles with correct writing of characters names, so it solves with another command in hidden text in messages to you, that give you all correctly english names of characters (just copy hidden text and paste it in private chat) ||But in plans to make it look like this: https://brdraft.com/||",
+    "move_us":
+            "**need privileged role for use*\n\nThis command automaticity deliver you and all members of your voice channel to another empty bigger chanel",
+    "change_language":
+            "**need privileged role for use*\n\n Change bot messages language. Need to use keyword (support: RU, ENG)",
+    "balance":
+            "This command balance your lobby base to members in voice channel, in that you are now.\nIf in your voice more or less members that 6, bot answer you what you must do with instruction.",
+    "my_true_state":
+            "Take some state of character and give you true another state without 'lobby-effect' (take state in following order: 1.games 2.winrate 3.lvl 4.currentExp)",
+    "team_pick":
+            "For ordinary this command give you random team that include 1 melee, 1 range and 1 support, but you can change this set using the following keys (args):\n`CHAOS` - absolute random team",
+    "my_pick":
+            "Give you 1 random character. Also, you can specify the group of character, what you want to play. (different groups (if you want same) separations with spaces)",
+    "help":
+            "Show this message"
+    },
+  "chp1":
+          "You must give new prefix to change old!",
+  "chp2":
+          "This is application command prefix, you already can use it to interact with most of bots",
+  "chp3":
+          "New prefix mustn't include spaces!",
+  "chl1":
+          "List of support language: %s",
+  "chl2":
+          "Well done!",
+  "dr1":
+          "You ment lesser people than needier. Call one (if YOU play in next clutch) or two team captains",
+  "dr2":
+          "You ment more people than needier. Call only the (two) team captains, or (if you one of them) another one capitan",
+  "dr3":
+          "Choose hero what you want to ban for enemy team.",
+  "dr4":
+          "Choose hero what you want to add in your command.",
+  "dr5":
+          "Your opponent chose %s in there phase.",
+  "dr6":
+          "Someone is not ready! (time for draft is out)",
+  "ch1":
+          "%s ~~keyword~~: ||Characters||",
+  "ch2":
+          "Your opponent ban this hero. Are you remember?!",
+  "ch3":
+          "Unknown character. Send new! (for see correct names write me **Characters**)",
+  "tp1":
+          "Unknown  keyword, please use only next one of the conditions: %s **Or don't give any key and your pick will ordinary**",
+  "tp2":
+          "And your dream-team is...%s",
+  "op1":
+          "And your pick is... ||**%s!**||",
+  "op2":
+          "Battlerite have 3 group of characters: meele, range and supports. Please, use THIS keywords to use this function.",
+  "op3":
+          "Battlerite have only 3 group of characters, and you given more.",
+  "mts1":
+          "You don't take some arguments\n**%smy_true_state** take arguments in following order:\n1.games\n2.winrate\n3.lvl\n4.currentExp\n\nLike this: *%smy_true_state 200 42 19 3000*",
+  "mts2":
+          "Your true state on this character is:\n%s matches, with %s% winrate",
+  "mu1":
+          "You must be in voice channel to use this function!",
+  "mu2":
+          "Your guild haven't empty voice channels",
+  "mu3":
+          "You are already locate in biggest channel",
+  "mu4":
+          "Well done!",
+  "bvm1":
+          "You must be in voice channel to use this function!",
+  "bvm2":
+          "You play with my bites, ask_about_players leave you! (time is end)",
+  "bvm3":
+          "And after long thinking, my opinion that commands must be next:\n%s\n\tVS\n%s",
+  "aap1":
+          "Ment members that don't in voice channel. (just ment them)\n```ARM\nWARNING: if you write and dont ment someone - his rating will not include in data-base (if you will write someone write about him next: <nick> <league role> (league_role like in your server if you write incorrect - *default between gold and platinum*))```",
+  "aap2":
+          "Who in your voice channel dont play? (just ment them without another text)"
+}

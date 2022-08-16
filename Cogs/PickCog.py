@@ -3,7 +3,7 @@ from random import randint
 
 from BRBot import BRBot
 
-from Utils.MessageLib import reaction
+from Utils.MessageLib import reaction, custom_embed
 
 lstOfCharacters = {
     "melee": ["Bakko", "Croak", "Freya", "Jamila", "Raigon", "Rook", "Ruh Kaan", "Shifu", "Thorn"],
@@ -45,15 +45,13 @@ class PickCog(commands.Cog):
                     pick += "!**||"
                 case _:
                     await reaction(ctx, False)
-                    ctx.reply("Unknown  keyword, please use only next one of the conditions: " +
-                              f"*{', '.join(f'`{x}`' for x in lstOfKeys)}*" +
-                              "\n\n**Or don't give any key and your pick will ordinary**")
+                    ctx.respond(embed=custom_embed("tp1", ', '.join(f'`{x}`' for x in lstOfKeys)))
                     return
 
             await reaction(ctx, True)
-            await ctx.reply(f"And your dream-team is...{pick}")
+            await ctx.respond(embed=custom_embed("tp2", pick))
 
-    @commands.command()
+    @commands.command(name="my_pick")
     async def ones_pick(self, ctx, *group: str) -> None:
         """
         Give you 1 random character. Also, you can specify the group of character, what you want to play. (different
@@ -65,17 +63,16 @@ class PickCog(commands.Cog):
                     group = ['melee', 'range', 'supports']
                 if all(x in lstOfCharacters for x in group):
                     sup_lst = [lstOfCharacters[x] for x in group]
-                    sup_randHero = sup_lst[randint(0, len(sup_lst) - 1)]
-                    randHero = sup_randHero[randint(0, len(sup_randHero) - 1)]
+                    sup_rand_hero = sup_lst[randint(0, len(sup_lst) - 1)]
+                    rand_hero = sup_rand_hero[randint(0, len(sup_rand_hero) - 1)]
                     await reaction(ctx, True)
-                    await ctx.reply(f"And your pick is... ||**{randHero}!**||")
+                    await ctx.respond(embed=custom_embed("op1", rand_hero))
                 else:
                     await reaction(ctx, False)
-                    await ctx.reply("Battlerite have 3 group of characters: meele, range and supports." +
-                                    "Please, use THIS keywords to use this function.")
+                    await ctx.respond(embed=custom_embed("op2"))
             else:
                 await reaction(ctx, False)
-                await ctx.reply("Battlerite have only 3 group of characters, and you given more.")
+                await ctx.respond(embed=custom_embed("op3"))
 
 
 def setup(bot: BRBot) -> None:

@@ -6,8 +6,8 @@ from discord.ext import commands
 
 from BRBot import BRBot
 from Cogs.PickCog import lstOfCharacters
-from Utils.MessageLib import reaction
-from Utils.JsonHandler import settings
+from Utils.MessageLib import reaction, custom_embed
+from Utils.JsonHandler import settings, message_texts
 
 
 class DraftCog(commands.Cog):
@@ -27,7 +27,7 @@ class DraftCog(commands.Cog):
         with right writing of characters names, so it solves with another command in hidden text in messages to you,
         that give you all correctly english names of characters (just copy hidden text and paste it in private chat)
         ||But in plans to make it look like this: https://brdraft.com/||
-        ```
+        ```ARM
         WARNING: you must have open private chat to take part in draft
         ```
         """
@@ -35,29 +35,32 @@ class DraftCog(commands.Cog):
             match len(ctx.message.mentions):
                 case 0:
                     await reaction(ctx, False)
-                    await ctx.reply("You ment lesser people than needier. Call one (if YOU play in next clutch)"
-                                    " or two team captains")
+                    await ctx.respond(embed=custom_embed("dr1"))
                     return
                 case 1:
-                    capitan1 = ctx.author
-                    capitan2 = ctx.message.mentions[0]
+                    if ctx.message.mentions[0] != ctx.author:
+                        capitan1 = ctx.author
+                        capitan2 = ctx.message.mentions[0]
+                    else:
+                        await reaction(ctx, False)
+                        await ctx.respond(embed=custom_embed("dr1"))
+                        return
                 case 2:
                     capitan1 = ctx.message.mentions[0]
                     capitan2 = ctx.message.mentions[1]
 
                 case _:
                     await reaction(ctx, False)
-                    await ctx.reply("You ment more people than needier. Call only the (two) team captains, "
-                                    "or (if you one of them) another one capitan")
+                    await ctx.respond(embed=custom_embed("dr2"))
                     return
             await reaction(ctx, True)
             ban_list = [[], []]
             order = ["ban", "pick", "pick", "ban", "pick"]
             sentences_for_phases = {
                 "ban":
-                    "Choose hero what you want to ban for enemy team.",
+                    message_texts["dr3"],
                 "pick":
-                    "Choose hero what you want to add in your command."
+                    message_texts["dr4"]
             }
             try:
                 for phase in order:
@@ -69,8 +72,8 @@ class DraftCog(commands.Cog):
                     if phase == "ban":
                         ban_list[0] += [captains_ans[0]]
                         ban_list[1] += [captains_ans[1]]
-                    await capitan2.send(f"Your opponent chose {captains_ans[0]} in there phase.")
-                    await capitan1.reply(f"Your opponent chose {captains_ans[1]} in there phase.")
+                    await capitan2.send(embed=custom_embed("dr5", captains_ans[0]))
+                    await capitan1.send(embed=custom_embed("dr5", captains_ans[1]))  # ..."%captains_ans[1]
             except asyncio.TimeoutError:
                 await reaction(ctx, False)
                 await ctx.reply("Someone is not ready! (time for draft is out)")
@@ -80,7 +83,7 @@ class DraftCog(commands.Cog):
         This function provide one-time choose phase-character for 2 captains, without waiting
         """
         # need to add timeout ending count
-        await user.send(f"{sentence} ~~keyword~~: ||Characters||")
+        await user.send(embed=custom_embed("ch1", sentence))
         async with timeout(settings["time_to_draft_phase_in_seconds"]):
             while True:
                 msg = await self.bot.wait_for("message", check=lambda m: m.author == user)
@@ -90,12 +93,12 @@ class DraftCog(commands.Cog):
                         await user.send(group + ":\n" + "\n".join(hero for hero in lstOfCharacters[group]),
                                         delete_after=60.0)
                 elif ans in ban_list:
-                    await user.send("Your opponent ban this hero. Are you remember?!")
+                    await user.send(embed=custom_embed("ch2"))
                 elif ans in [hero for group in lstOfCharacters for hero in lstOfCharacters[group]]:
 
                     return ans
                 else:
-                    await user.send("Unknown character. Send new! (for see correct names write me **Characters**)")
+                    await user.send(embed=custom_embed("ch3"))
 
 
 def setup(bot: BRBot) -> None:
