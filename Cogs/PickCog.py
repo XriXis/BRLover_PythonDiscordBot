@@ -1,9 +1,10 @@
+from discord import Option
 from discord.ext import commands
 from random import randint
 
 from BRBot import BRBot
 
-from Utils.MessageLib import reaction, custom_embed
+from Utils.MessageLib import custom_embed
 
 lstOfCharacters = {
     "melee": ["Bakko", "Croak", "Freya", "Jamila", "Raigon", "Rook", "Ruh Kaan", "Shifu", "Thorn"],
@@ -18,16 +19,10 @@ class PickCog(commands.Cog):
     """
 
     def __init__(self, bot: BRBot) -> None:
-        self.bot: BRBot = bot
+        self.bot = bot
 
-    @commands.command()
-    async def team_pick(self, ctx, key: str = None) -> None:
-        """
-        For ordinary this command give you random team that include 1 melee, 1 range and 1 support,
-        but you can change this set using the following keys (args):\n
-        `CHAOS` - absolute random team
-        """
-        # In this function must be smart-sorting of members based on voice context and data-base of person's skills
+    @commands.slash_command(descroption="Give you random team. Keys: CHAOS")
+    async def team_pick(self, ctx, key: Option(str) = None) -> None:
         if ctx.author != self.bot.user:
             lstOfKeys = [
                 "CHAOS"
@@ -44,35 +39,28 @@ class PickCog(commands.Cog):
                         pick += f"\n{group[randint(0, len(group) - 1)]},"
                     pick += "!**||"
                 case _:
-                    await reaction(ctx, False)
-                    ctx.respond(embed=custom_embed("tp1", ', '.join(f'`{x}`' for x in lstOfKeys)))
+                    ctx.respond(embed=custom_embed(False, "tp1", ', '.join(f'`{x}`' for x in lstOfKeys)))
                     return
 
-            await reaction(ctx, True)
-            await ctx.respond(embed=custom_embed("tp2", pick))
+            await ctx.respond(embed=custom_embed(True, "tp2", pick))
 
-    @commands.command(name="my_pick")
-    async def ones_pick(self, ctx, *group: str) -> None:
-        """
-        Give you 1 random character. Also, you can specify the group of character, what you want to play. (different
-        groups (if you want same) separations with spaces)
-        """
-        if ctx.author != self.bot.user:
-            if len(group) <= 3:
-                if not group:
-                    group = ['melee', 'range', 'supports']
-                if all(x in lstOfCharacters for x in group):
-                    sup_lst = [lstOfCharacters[x] for x in group]
-                    sup_rand_hero = sup_lst[randint(0, len(sup_lst) - 1)]
-                    rand_hero = sup_rand_hero[randint(0, len(sup_rand_hero) - 1)]
-                    await reaction(ctx, True)
-                    await ctx.respond(embed=custom_embed("op1", rand_hero))
-                else:
-                    await reaction(ctx, False)
-                    await ctx.respond(embed=custom_embed("op2"))
+    @commands.slash_command(name="my_pick", description="1 rand hero. Groups separate with spaces")
+    async def ones_pick(self, ctx, group: Option(str) = None) -> None:
+        if group is None:
+            group = ['melee', 'range', 'supports']
+        else:
+            group = list(group.split())
+        if len(group) <= 3:
+            if all(x in lstOfCharacters for x in group):
+                sup_lst = [lstOfCharacters[x] for x in group]
+                sup_rand_hero = sup_lst[randint(0, len(sup_lst) - 1)]
+                rand_hero = sup_rand_hero[randint(0, len(sup_rand_hero) - 1)]
+                embed = custom_embed(True, "op1", rand_hero)
             else:
-                await reaction(ctx, False)
-                await ctx.respond(embed=custom_embed("op3"))
+                embed = custom_embed(False, "op2")
+        else:
+            embed = custom_embed(False, "op3")
+        await ctx.respond(embed=embed)
 
 
 def setup(bot: BRBot) -> None:

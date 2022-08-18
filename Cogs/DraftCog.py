@@ -35,7 +35,7 @@ class DraftCog(commands.Cog):
             match len(ctx.message.mentions):
                 case 0:
                     await reaction(ctx, False)
-                    await ctx.respond(embed=custom_embed("dr1"))
+                    await ctx.respond(embed=custom_embed(False, "dr1"))
                     return
                 case 1:
                     if ctx.message.mentions[0] != ctx.author:
@@ -43,7 +43,7 @@ class DraftCog(commands.Cog):
                         capitan2 = ctx.message.mentions[0]
                     else:
                         await reaction(ctx, False)
-                        await ctx.respond(embed=custom_embed("dr1"))
+                        await ctx.respond(embed=custom_embed(False, "dr1"))
                         return
                 case 2:
                     capitan1 = ctx.message.mentions[0]
@@ -51,7 +51,7 @@ class DraftCog(commands.Cog):
 
                 case _:
                     await reaction(ctx, False)
-                    await ctx.respond(embed=custom_embed("dr2"))
+                    await ctx.respond(embed=custom_embed(False, "dr2"))
                     return
             await reaction(ctx, True)
             ban_list = [[], []]
@@ -72,18 +72,18 @@ class DraftCog(commands.Cog):
                     if phase == "ban":
                         ban_list[0] += [captains_ans[0]]
                         ban_list[1] += [captains_ans[1]]
-                    await capitan2.send(embed=custom_embed("dr5", captains_ans[0]))
-                    await capitan1.send(embed=custom_embed("dr5", captains_ans[1]))  # ..."%captains_ans[1]
+                    await capitan2.send(embed=custom_embed(True, "dr5", captains_ans[0]))
+                    await capitan1.send(embed=custom_embed(True, "dr5", captains_ans[1]))
             except asyncio.TimeoutError:
                 await reaction(ctx, False)
-                await ctx.reply("Someone is not ready! (time for draft is out)")
+                await ctx.respond("Someone is not ready! (time for draft is out)")
 
     async def choose(self, user: member, ban_list: list[str] = (), *, sentence: str) -> message:
         """
         This function provide one-time choose phase-character for 2 captains, without waiting
         """
         # need to add timeout ending count
-        await user.send(embed=custom_embed("ch1", sentence))
+        await user.send(embed=custom_embed(True, "ch1", sentence))
         async with timeout(settings["time_to_draft_phase_in_seconds"]):
             while True:
                 msg = await self.bot.wait_for("message", check=lambda m: m.author == user)
@@ -93,12 +93,12 @@ class DraftCog(commands.Cog):
                         await user.send(group + ":\n" + "\n".join(hero for hero in lstOfCharacters[group]),
                                         delete_after=60.0)
                 elif ans in ban_list:
-                    await user.send(embed=custom_embed("ch2"))
+                    await user.send(embed=custom_embed(False, "ch2"))
                 elif ans in [hero for group in lstOfCharacters for hero in lstOfCharacters[group]]:
 
                     return ans
                 else:
-                    await user.send(embed=custom_embed("ch3"))
+                    await user.send(embed=custom_embed(False, "ch3"))
 
 
 def setup(bot: BRBot) -> None:

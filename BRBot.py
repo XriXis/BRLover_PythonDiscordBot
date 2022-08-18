@@ -30,7 +30,8 @@ class BRBot(BotBase):
             command_prefix=settings['prefix'],
             case_insensitive=False,
             help_command=CustomHelpCommand(),
-            intents=intents
+            intents=intents,
+            debug_guilds=settings["guilds"]
         )
         self.bot_version = '0.0.0'
 

@@ -21,15 +21,21 @@ async def delete_garbage(msgs: list[message]) -> None:
             print("Bot haven't permission to manage message")
 
 
-def custom_embed(key: str, *args: str) -> Embed:
+def custom_embed(flag: bool, key: str, *args: str) -> Embed:
     """
+    :param flag: colour of embed
     :param key: str, key in json land-data
     :param args: Any, params to create format-string, were it used
     :return: Embed
     """
+    if flag:
+        col = Colour.dark_blue()
+    else:
+        col = Colour.red()
     embed = Embed(
         title="BRLover",
         description=message_texts[key] % args,
-        colour=Colour.dark_blue()
+        colour=col
     )
+
     return embed

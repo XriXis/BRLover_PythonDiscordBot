@@ -26,6 +26,8 @@
           "This is application command prefix, you already can use it to interact with most of bots",
   "chp3":
           "New prefix mustn't include spaces!",
+  "chp4":
+          "Ok",
   "chl1":
           "List of support language: %s",
   "chl2":
@@ -42,6 +44,8 @@
           "Your opponent chose %s in there phase.",
   "dr6":
           "Someone is not ready! (time for draft is out)",
+  "dr7":
+          "Teams are next:\n\n%s,%s and %s\n\tVS\n%s,%s and %s",
   "ch1":
           "%s ~~keyword~~: ||Characters||",
   "ch2":
