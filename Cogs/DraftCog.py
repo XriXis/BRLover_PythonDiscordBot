@@ -5,9 +5,8 @@ from discord import member, message
 from discord.ext import commands
 
 from BRBot import BRBot
-from Cogs.PickCog import lstOfCharacters
 from Utils.MessageLib import reaction, custom_embed
-from Utils.JsonHandler import settings, message_texts
+from Utils.JsonHandler import settings, message_texts, lst_of_characters
 
 
 class DraftCog(commands.Cog):
@@ -87,14 +86,15 @@ class DraftCog(commands.Cog):
         async with timeout(settings["time_to_draft_phase_in_seconds"]):
             while True:
                 msg = await self.bot.wait_for("message", check=lambda m: m.author == user)
-                ans = msg.content.capitalize()
+                ans = msg.content.title()
                 if ans == "Characters":
-                    for group in lstOfCharacters:
-                        await user.send(group + ":\n" + "\n".join(hero for hero in lstOfCharacters[group]),
+                    for group in lst_of_characters:
+                        await user.send(f"**{group}**" + ":\n\t" + "\n\t".join(hero for hero in lst_of_characters[group]),
                                         delete_after=60.0)
                 elif ans in ban_list:
                     await user.send(embed=custom_embed(False, "ch2"))
-                elif ans in [hero for group in lstOfCharacters for hero in lstOfCharacters[group]]:
+                elif ans in [hero for group in lst_of_characters for hero in lst_of_characters[group]]:
+                    await msg.add_reaction('✅')
 
                     return ans
                 else:

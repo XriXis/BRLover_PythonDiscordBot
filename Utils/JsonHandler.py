@@ -24,3 +24,10 @@ def change_prefix_in_data(new_prefix):
     settings['prefix'] = new_prefix
     with open(JSON_DATA, 'w', encoding="utf-8") as fp:
         json.dump(settings, fp)
+
+
+lst_of_characters = {
+    "melee": ["Bakko", "Croak", "Freya", "Jamila", "Raigon", "Rook", "Ruh Kaan", "Shifu", "Thorn"],
+    "range": ['Ashka', 'Alysia', 'Desteny', 'Ezmo', 'Iva', 'Jade', 'Jumong', 'Shen Rao', 'Taya', 'Varesh'],
+    "supports": ['Blossom', 'Lucie', 'Oldur', 'Perl', 'Pestilus', 'Poloma', 'Sirius', 'Ulric', 'Zander']
+}

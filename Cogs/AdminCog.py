@@ -20,9 +20,9 @@ class AdminCog(commands.Cog):
 
     @commands.slash_command(description="for prefix-command")
     @commands.has_role(settings["privileged role"])
-    async def change_prefix(self, ctx, new_prefix: Option(str) = None) -> None:
+    async def change_prefix(self, ctx, new_prefix: Option(str)) -> None:
 
-        if new_prefix is None:
+        if str_without_spaces(new_prefix) == "":
             embed = custom_embed(False, "chp1")
         elif new_prefix == "/":
             embed = custom_embed(False, "chp2")
@@ -37,14 +37,22 @@ class AdminCog(commands.Cog):
 
     @commands.slash_command(description="must reboot bot")
     @commands.has_role(settings["privileged role"])
-    async def change_language(self, ctx, lang):
+    async def change_language(self, ctx, lang: Option(str)):
         if lang not in settings["support_languages"]:
             await ctx.respond(embed=custom_embed(False, "chl1", ", ".join(settings["support_languages"])))
         else:
             change_lang_in_data(lang)
             await ctx.respond(embed=custom_embed(True, "chl2"))
 
-    # TO DO: listener of connection, that add new guild to "settings". This needier for slash-commands
+    # TODO: listener of connection, that add new guild to "settings". This needier for slash-commands
+
+
+def str_without_spaces(text: str) -> str:
+    result = ""
+    for char in text:
+        if char != "":
+            result += char
+    return result
 
 
 def setup(bot: BRBot) -> None:

@@ -14,10 +14,10 @@ class StateCog(commands.Cog):
     async def my_true_state(
             self,
             ctx,
-            games: Option(int) = None,
-            win_rate: Option(float) = None,
-            lvl: Option(int) = None,
-            current_exp: Option(int) = None):
+            games: Option(int),
+            win_rate: Option(float),
+            lvl: Option(int),
+            current_exp: Option(int)):
         if any(x is None for x in (games, win_rate, lvl, current_exp)):
             await ctx.respond(embed=custom_embed(False, "mts1", *[settings["prefix"]] * 2))
         else:
