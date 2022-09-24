@@ -33,16 +33,12 @@
           "List of support language: %s",
   "chl2":
           "Well done!",
-  "dr1":
-          "You ment lesser people than needier. Call one (if YOU play in next clutch) or two team captains",
-  "dr2":
-          "You ment more people than needier. Call only the (two) team captains, or (if you one of them) another one capitan",
   "ban":
           "Choose hero what you want to ban for enemy team.",
   "pick":
           "Choose hero what you want to add in your command.",
   "dr5":
-          "Your opponent chose %s in there phase.",
+          "🟥Your opponent ***chose %s*** in there phase.🟥",
   "dr6":
           "Someone is not ready! (time for draft is out)",
   "dr7":
