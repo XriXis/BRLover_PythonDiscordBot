@@ -5,7 +5,7 @@
     "change_prefix":
             "**need privileged role for use*\n\n Action of this command are locates in their name.",
     "draft":
-            "**need privileged role for use*\n\nThis command realise draft system, now it works like awaitable private chat, so you can run into some troubles with correct writing of characters names, so it solves with another command in hidden text in messages to you, that give you all correctly english names of characters (just copy hidden text and paste it in private chat) ||But in plans to make it look like this: https://brdraft.com/||",
+            "**this is user-command, to use it you should use m2 to that person, with who you want to draft, in context-menu choose 'applications' and in nex context-menu choose 'draft'*\n\nThis command realise draft system, now it works like awaitable private chat, so you can run into some troubles with correct writing of characters names, so it solves with another command in hidden text in messages to you, that give you all correctly english names of characters (just copy hidden text and paste it in private chat) ||But in plans to make it look like this: https://brdraft.com/||",
     "move_us":
             "**need privileged role for use*\n\nThis command automaticity deliver you and all members of your voice channel to another empty bigger chanel",
     "change_language":
@@ -33,10 +33,10 @@
           "List of support language: %s",
   "chl2":
           "Well done!",
-  "ban":
-          "Choose hero what you want to ban for enemy team.",
-  "pick":
-          "Choose hero what you want to add in your command.",
+  "BanState":
+          "Choose hero what you want to ***ban*** for enemy team.",
+  "PickState":
+          "Choose hero what you want to ***add*** in your command.",
   "dr5":
           "🟥Your opponent ***chose %s*** in there phase.🟥",
   "dr6":

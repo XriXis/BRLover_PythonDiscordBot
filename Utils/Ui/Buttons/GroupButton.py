@@ -1,19 +1,24 @@
+import re
+
 from discord import Interaction
 
 from Utils.JsonHandler import lst_of_characters
 from Utils.MessageLib import custom_embed
 from Utils.Ui.Buttons.CharacterButton import CharacterButton
-from Utils.Ui.Buttons.IButton import IButton
+from Utils.Ui.Buttons.BaseButton import BaseButton
+from Utils.Ui.StatesOfDraft.PickState import PickState
 
 
-class GroupButton(IButton):
+class GroupButton(BaseButton):
     async def callback(self, interaction: Interaction):
         await interaction.response.edit_message(content=None,
                                                 view=self.draft.generate_buttons(lst_of_characters[self.label],
                                                                                  CharacterButton,
                                                                                  self.captain),
                                                 embed=custom_embed(
-                                                    self.draft.str_phase == "pick",
+                                                    isinstance(self.draft._state, PickState),
                                                     "empty",
-                                                    f"✅ you choose to **{self.draft.str_phase}** {self.label} characters ✅"
+                                                    f"✅ you choose to **"
+                                                    f"{self.draft._state.to_str()}**"
+                                                    f" {self.label} characters ✅"
                                                 ))
