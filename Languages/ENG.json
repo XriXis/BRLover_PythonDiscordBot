@@ -33,6 +33,8 @@
           "List of support language: %s",
   "chl2":
           "Well done!",
+  "1 capitan in draft":
+          "You are can't draft with yourself!",
   "BanState":
           "Choose hero what you want to ***ban*** for enemy team.",
   "PickState":

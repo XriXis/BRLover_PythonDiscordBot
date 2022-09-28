@@ -1,11 +1,10 @@
-from asyncio import gather
+from asyncio import sleep
 
-from discord import member
+from discord import member, Embed
 from discord.ui import View
 
 from Utils.JsonHandler import lst_of_characters, settings
 from Utils.MessageLib import custom_embed
-
 from Utils.Ui.Buttons.CharacterButton import CharacterButton
 from Utils.Ui.Buttons.GroupButton import GroupButton
 from Utils.Ui.Buttons.ReturnedButton import ReturnedButton
@@ -45,18 +44,31 @@ class Draft:
             view_with_buttons.add_item(ReturnedButton(capitan, self))
         return view_with_buttons
 
-    async def send_start_of_draft_phase(self):
-        await gather(
-            self.captain1.send(embed=custom_embed(isinstance(self._state, PickState), self._state.__class__.__name__),
-                               view=self.generate_buttons(
-                                   lst_of_characters,
-                                   GroupButton,
-                                   self.captain1
-                               )),
-            self.captain2.send(embed=custom_embed(isinstance(self._state, PickState), self._state.__class__.__name__),
-                               view=self.generate_buttons(
-                                   lst_of_characters,
-                                   GroupButton,
-                                   self.captain2
-                               ))
-        )
+    def generate_draft_choose_messages(self) -> tuple[dict[str, View | Embed], ...]:
+        return tuple(
+            {'embed': custom_embed(
+                isinstance(self._state, PickState),
+                self._state.__class__.__name__),
+             'view': self.generate_buttons(
+                lst_of_characters,
+                GroupButton,
+                captain)
+            } for captain in (self.captain1, self.captain2))
+
+    async def update_captains_choose_messages(self) -> None:
+        args = self.generate_draft_choose_messages()
+        await self.captain1.draft_chose_message.edit(**args[0])
+        await self.captain2.draft_chose_message.edit(**args[1])
+
+    async def update_captains_state_messages(self, chose_1st_captain: str, chose_2nd_captain: str) -> None:
+        await self.captain1.update_state_message(chose_1st_captain, chose_2nd_captain)
+        await self.captain2.update_state_message(chose_2nd_captain, chose_1st_captain)
+
+    async def send_state_messages(self) -> None:
+        await self.captain1.send_and_set_state_message()
+        await self.captain2.send_and_set_state_message()
+
+    async def send_chose_messages(self) -> None:
+        args = self.generate_draft_choose_messages()
+        await self.captain1.send_and_set_chose_message(**args[0])
+        await self.captain2.send_and_set_chose_message(**args[0])

@@ -16,9 +16,11 @@ class PickState(AbstractDraftState):
                 ))
             else:
                 self.draft.update_state()
-                await self.draft.captain2.send(embed=custom_embed(True, "dr5", self.draft.captain1.picks[-1]))
-                await self.draft.captain1.send(embed=custom_embed(True, "dr5", self.draft.captain2.picks[-1]))
-                await self.draft.send_start_of_draft_phase()
+                await self.draft.update_captains_state_messages(
+                    self.draft.captain1.picks[-1],
+                    self.draft.captain2.picks[-1]
+                )
+                await self.draft.update_captains_choose_messages()
 
     def to_str(self) -> str:
         return "pick"
