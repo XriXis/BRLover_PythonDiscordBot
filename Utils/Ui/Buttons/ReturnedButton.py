@@ -2,10 +2,9 @@ from discord import Interaction
 
 from Utils.JsonHandler import lst_of_characters
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Buttons.GroupButton import GroupButton
 from Utils.Ui.Buttons.BaseButton import BaseButton
+from Utils.Ui.Buttons.GroupButton import GroupButton
 from Utils.Ui.Captain import Captain
-from Utils.Ui.StatesOfDraft.PickState import PickState
 
 
 class ReturnedButton(BaseButton):
@@ -18,6 +17,6 @@ class ReturnedButton(BaseButton):
                                                                                  GroupButton,
                                                                                  self.captain),
                                                 embed=custom_embed(
-                                                    isinstance(self.draft._state, PickState),
-                                                    self.draft._state.__class__.__name__
+                                                    self.draft._state.to_str() == "pick",
+                                                    self.draft._state.to_str()
                                                 ))

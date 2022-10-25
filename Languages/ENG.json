@@ -33,16 +33,20 @@
           "List of support language: %s",
   "chl2":
           "Well done!",
-  "BanState":
+  "1 capitan in draft":
+          "You are can't draft with yourself!",
+  "draft with bot":
+          "Sorry, i can't play BR 😥",
+  "ban":
           "Choose hero what you want to ***ban*** for enemy team.",
-  "PickState":
+  "pick":
           "Choose hero what you want to ***add*** in your command.",
   "dr5":
           "🟥Your opponent ***chose %s*** in there phase.🟥",
   "dr6":
           "Someone is not ready! (time for draft is out)",
   "dr7":
-          "Teams are next:\n\n%s,%s and %s\n\tVS\n%s,%s and %s",
+          "Teams are next:\n\n%s, %s and %s\n\tVS\n%s, %s and %s",
   "ch1":
           "%s ~~keyword~~: ||Characters||",
   "ch2":
