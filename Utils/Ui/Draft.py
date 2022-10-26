@@ -1,6 +1,6 @@
-from asyncio import sleep
+from asyncio import gather
 
-from discord import member, Embed
+from discord import member
 from discord.ui import View
 
 from Utils.JsonHandler import lst_of_characters, settings
@@ -11,6 +11,7 @@ from Utils.Ui.Buttons.ReturnedButton import ReturnedButton
 from Utils.Ui.Captain import Captain
 from Utils.Ui.StatesOfDraft.AbstractDraftState import AbstractDraftState
 from Utils.Ui.StatesOfDraft.BanState import BanState
+from Utils.Ui.StatesOfDraft.FinalState import FinalState
 from Utils.Ui.StatesOfDraft.PickState import PickState
 
 
@@ -20,12 +21,16 @@ class Draft:
     def __init__(self, captain1: member, captain2: member, global_channel):
         self.captain1 = Captain(captain1)
         self.captain2 = Captain(captain2)
-        self.order = iter(["ban", "pick", "pick", "ban", "pick"])
+        self.order = iter(["ban", "pick", "pick", "ban", "final_pick"])
         self.global_channel = global_channel
         self.update_state()
 
     def update_state(self):
-        self._state = BanState(self) if next(self.order) == "ban" else PickState(self)
+        next_state = next(self.order)
+        self._state = \
+            BanState(self) if next_state == "ban" \
+            else PickState(self) if next_state == "pick" \
+            else FinalState(self)
 
     def is_character_occupied(self, character: str, captain: Captain) -> bool:
         return self._state.is_character_occupied(character, captain)
@@ -44,31 +49,40 @@ class Draft:
             view_with_buttons.add_item(ReturnedButton(capitan, self))
         return view_with_buttons
 
-    def generate_draft_choose_messages(self) -> tuple[dict[str, View | Embed], ...]:
-        return tuple(
-            {'embed': custom_embed(
-                isinstance(self._state, PickState),
-                self._state.__class__.__name__),
-             'view': self.generate_buttons(
-                lst_of_characters,
-                GroupButton,
-                captain)
-            } for captain in (self.captain1, self.captain2))
+    async def start(self):
+        await gather(
+            self.captain1.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                                view=self.generate_buttons(
+                                    lst_of_characters,
+                                    GroupButton,
+                                    self.captain1
+                                )),
+            self.captain2.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                                view=self.generate_buttons(
+                                    lst_of_characters,
+                                    GroupButton,
+                                    self.captain2
+                                ))
+        )
 
-    async def update_captains_choose_messages(self) -> None:
-        args = self.generate_draft_choose_messages()
-        await self.captain1.draft_chose_message.edit(**args[0])
-        await self.captain2.draft_chose_message.edit(**args[1])
+    async def stop(self):
+        await self.captain1.stop()
+        await self.captain2.stop()
 
-    async def update_captains_state_messages(self, chose_1st_captain: str, chose_2nd_captain: str) -> None:
-        await self.captain1.update_state_message(chose_1st_captain, chose_2nd_captain)
-        await self.captain2.update_state_message(chose_2nd_captain, chose_1st_captain)
-
-    async def send_state_messages(self) -> None:
-        await self.captain1.send_and_set_state_message()
-        await self.captain2.send_and_set_state_message()
-
-    async def send_chose_messages(self) -> None:
-        args = self.generate_draft_choose_messages()
-        await self.captain1.send_and_set_chose_message(**args[0])
-        await self.captain2.send_and_set_chose_message(**args[0])
+    async def update_messages(self, chose_1st_cap, chose_2nd_cap):
+        await gather(
+            self.captain1.update_messages(chose_1st_cap,
+                                          chose_2nd_cap,
+                                          state=self._state.to_str(),
+                                          view=self.generate_buttons(
+                                              lst_of_characters,
+                                              GroupButton,
+                                              self.captain1)),
+            self.captain2.update_messages(chose_2nd_cap,
+                                          chose_1st_cap,
+                                          state=self._state.to_str(),
+                                          view=self.generate_buttons(
+                                              lst_of_characters,
+                                              GroupButton,
+                                              self.captain2))
+        )

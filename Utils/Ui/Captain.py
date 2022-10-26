@@ -1,33 +1,44 @@
 from discord import member, Embed, Colour, Message
+from discord.ui import View
+
+from Utils.MessageLib import custom_embed
 
 
 class Captain:
-    draft_chose_message: Message
-    draft_state_message: Message
+    _draft_message: Message
+    _chose_message: Message
 
     def __init__(self, ment: member):
         self.ment = ment
         self.bans = []
         self.picks = []
 
+    async def start(self, **kwargs_of_chose_message):
+        self._draft_message = await self._send_draft_message()
+        self._chose_message = await self.ment.send(**kwargs_of_chose_message)
+
+    async def stop(self):
+        await self._chose_message.delete(reason="Draft is end")
+
     async def send(self, **kwargs):
         await self.ment.send(**kwargs)
 
-    async def send_and_set_state_message(self) -> None:
-        self.draft_state_message = await self.ment.send(embed=self.draft_embed())
-
-    async def send_and_set_chose_message(self, **kwargs) -> None:
-        self.draft_chose_message = await self.ment.send(**kwargs)
-
-    @staticmethod
-    def draft_embed():
+    async def _send_draft_message(self) -> Message:
         embed = Embed(title="draft result", colour=Colour.brand_green())
         embed.add_field(name="🟩Your team🟩", value="ban1: _ \npick 1: _ \npick 2: _ \nban2: _ \npick 3: _")
         embed.add_field(name="🟥Opponent's team🟥", value="ban1: _ \npick 1: _ \npick 2: _ \nban2: _ \npick 3: _")
-        return embed
+        return await self.ment.send(
+            content=None,
+            embed=embed
+        )
 
-    async def update_state_message(self, *characters: str | str) -> None:
-        embed = self.draft_state_message.embeds[0]
+    async def update_messages(self, my_character: str, opponent_character: str, *, state: str, view: View):
+        characters = [my_character, opponent_character]
+        embed = self._draft_message.embeds[0]
         for x in 0, 1:
             embed.fields[x].value = embed.fields[x].value.replace("_", characters[x], 1)
-        await self.draft_state_message.edit(embed=embed)
+        await self._draft_message.edit(embed=embed)
+        await self._chose_message.edit(
+            embed=custom_embed(state == "pick", state),
+            view=view
+        )

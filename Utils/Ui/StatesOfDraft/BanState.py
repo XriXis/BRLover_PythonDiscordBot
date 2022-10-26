@@ -11,9 +11,10 @@ class BanState(AbstractDraftState):
             self.draft.captain1.bans.append(character)
         if len(self.draft.captain1.bans) == len(self.draft.captain2.bans):
             self.draft.update_state()
-            await self.draft.update_captains_state_messages(self.draft.captain2.bans[-1],
-                                                            self.draft.captain1.bans[-1])
-            await self.draft.update_captains_choose_messages()
+            await self.draft.update_messages(
+                self.draft.captain2.bans[-1],
+                self.draft.captain1.bans[-1]
+            )
 
     def to_str(self) -> str:
         return "ban"

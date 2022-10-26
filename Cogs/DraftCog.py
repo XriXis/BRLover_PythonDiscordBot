@@ -3,7 +3,6 @@ from discord.ext import commands
 
 from BRBot import BRBot
 from Utils.MessageLib import custom_embed
-from Utils.JsonHandler import settings
 from Utils.Ui.Draft import Draft
 
 
@@ -17,13 +16,14 @@ class DraftCog(commands.Cog):
 
     @commands.user_command(name="draft with", description="you can throw fight to user")
     async def draft(self, ctx, captain: member) -> None:
-        if ctx.author != captain:
+        if captain == ctx.author:
+            await ctx.respond(embed=custom_embed(False, "1 capitan in draft"))
+        elif captain == self.bot.user:
+            await ctx.respond(embed=custom_embed(False, "draft with bot"))
+        else:
             await ctx.respond(embed=custom_embed(True, "empty", "👌"))
             draft = Draft(ctx.author, captain, ctx.channel)
-            await draft.send_state_messages()
-            await draft.send_chose_messages()
-        else:
-            await ctx.respond(embed=custom_embed(False, "1 capitan in draft"))
+            await draft.start()
 
 
 def setup(bot: BRBot) -> None:
