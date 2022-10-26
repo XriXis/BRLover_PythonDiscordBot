@@ -81,12 +81,14 @@ class Draft:
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,
-                                              self.captain1)),
+                                              self.captain1),
+                                          is_final=isinstance(self._state, FinalState)),
             self.captain2.update_messages(chose_2nd_cap,
                                           chose_1st_cap,
                                           state=self._state.to_str(),
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,
-                                              self.captain2))
+                                              self.captain2),
+                                          is_final=isinstance(self._state, FinalState))
         )
