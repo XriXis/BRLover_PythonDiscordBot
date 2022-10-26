@@ -1,4 +1,3 @@
-from Utils.MessageLib import custom_embed
 from Utils.Ui.Captain import Captain
 from Utils.Ui.StatesOfDraft.AbstractDraftState import AbstractDraftState
 
@@ -15,6 +14,9 @@ class BanState(AbstractDraftState):
                 self.draft.captain2.bans[-1],
                 self.draft.captain1.bans[-1]
             )
+            captain.timer.reset()
+        else:
+            captain.timer.chill()
 
     def to_str(self) -> str:
         return "ban"

@@ -11,6 +11,9 @@ class PickState(AbstractDraftState):
                 self.draft.captain1.picks[-1],
                 self.draft.captain2.picks[-1]
             )
+            captain.timer.reset()
+        else:
+            captain.timer.chill()
 
     def to_str(self) -> str:
         return "pick"

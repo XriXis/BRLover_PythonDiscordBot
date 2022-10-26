@@ -11,6 +11,7 @@ class FinalState(AbstractDraftState):
                 self.draft.captain1.picks[-1],
                 self.draft.captain2.picks[-1]
             )
+            await captain.timer.stop()
             await self.draft.stop()
             await self.draft.global_channel.send(embed=custom_embed(
                 True,
@@ -18,6 +19,8 @@ class FinalState(AbstractDraftState):
                 *self.draft.captain1.picks,
                 *self.draft.captain2.picks
             ))
+        else:
+            captain.timer.chill()
 
     def to_str(self) -> str:
         return "pick"

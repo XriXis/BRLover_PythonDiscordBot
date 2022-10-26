@@ -1,12 +1,17 @@
+from threading import Thread
+
 from discord import member, Embed, Colour, Message
 from discord.ui import View
 
+from Utils.JsonHandler import settings
 from Utils.MessageLib import custom_embed
+from Utils.Ui.TimerMessage import TimerMessage
 
 
 class Captain:
     _draft_message: Message
     _chose_message: Message
+    timer: TimerMessage
 
     def __init__(self, ment: member):
         self.ment = ment
@@ -16,6 +21,9 @@ class Captain:
     async def start(self, **kwargs_of_chose_message):
         self._draft_message = await self._send_draft_message()
         self._chose_message = await self.ment.send(**kwargs_of_chose_message)
+        self.timer = TimerMessage(self.ment, settings["time_to_draft_phase_in_seconds"])
+        # TODO: take timer.send() work in outer thread
+        await self.timer.send()
 
     async def stop(self):
         await self._chose_message.delete(reason="Draft is end")
