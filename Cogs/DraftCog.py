@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from BRBot import BRBot
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Draft import Draft
+from Utils.DraftSystem.Draft import Draft
 
 
 class DraftCog(commands.Cog):

@@ -1,9 +1,9 @@
 from discord import Interaction
 
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Buttons.BaseButton import BaseButton
-from Utils.Ui.Captain import Captain
-from Utils.Ui.StatesOfDraft.PickState import PickState
+from Utils.DraftSystem.Buttons.BaseButton import BaseButton
+from Utils.DraftSystem.Captain import Captain
+from Utils.DraftSystem.StatesOfDraft.PickState import PickState
 
 
 class CharacterButton(BaseButton):

@@ -1,4 +1,4 @@
-from Utils.Ui.Captain import Captain
+from Utils.DraftSystem.Captain import Captain
 
 
 class AbstractDraftState:

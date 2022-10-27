@@ -2,9 +2,9 @@ from discord import Interaction
 
 from Utils.JsonHandler import lst_of_characters
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Buttons.BaseButton import BaseButton
-from Utils.Ui.Buttons.GroupButton import GroupButton
-from Utils.Ui.Captain import Captain
+from Utils.DraftSystem.Buttons.BaseButton import BaseButton
+from Utils.DraftSystem.Buttons.GroupButton import GroupButton
+from Utils.DraftSystem.Captain import Captain
 
 
 class ReturnedButton(BaseButton):

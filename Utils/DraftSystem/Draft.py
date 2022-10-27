@@ -5,14 +5,14 @@ from discord.ui import View
 
 from Utils.JsonHandler import lst_of_characters, settings
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Buttons.CharacterButton import CharacterButton
-from Utils.Ui.Buttons.GroupButton import GroupButton
-from Utils.Ui.Buttons.ReturnedButton import ReturnedButton
-from Utils.Ui.Captain import Captain
-from Utils.Ui.StatesOfDraft.AbstractDraftState import AbstractDraftState
-from Utils.Ui.StatesOfDraft.BanState import BanState
-from Utils.Ui.StatesOfDraft.FinalState import FinalState
-from Utils.Ui.StatesOfDraft.PickState import PickState
+from Utils.DraftSystem.Buttons.CharacterButton import CharacterButton
+from Utils.DraftSystem.Buttons.GroupButton import GroupButton
+from Utils.DraftSystem.Buttons.ReturnedButton import ReturnedButton
+from Utils.DraftSystem.Captain import Captain
+from Utils.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
+from Utils.DraftSystem.StatesOfDraft.BanState import BanState
+from Utils.DraftSystem.StatesOfDraft.FinalState import FinalState
+from Utils.DraftSystem.StatesOfDraft.PickState import PickState
 
 
 class Draft:
@@ -73,7 +73,7 @@ class Draft:
         await self.captain1.stop()
         await self.captain2.stop()
 
-    async def update_messages(self, chose_1st_cap, chose_2nd_cap):
+    async def update_messages(self, chose_1st_cap, chose_2nd_cap, *, is_final=False):
         await gather(
             self.captain1.update_messages(chose_1st_cap,
                                           chose_2nd_cap,
@@ -82,7 +82,7 @@ class Draft:
                                               lst_of_characters,
                                               GroupButton,
                                               self.captain1),
-                                          is_final=isinstance(self._state, FinalState)),
+                                          is_final=is_final),
             self.captain2.update_messages(chose_2nd_cap,
                                           chose_1st_cap,
                                           state=self._state.to_str(),
@@ -90,5 +90,5 @@ class Draft:
                                               lst_of_characters,
                                               GroupButton,
                                               self.captain2),
-                                          is_final=isinstance(self._state, FinalState))
+                                          is_final=is_final)
         )

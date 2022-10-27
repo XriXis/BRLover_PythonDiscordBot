@@ -2,8 +2,8 @@ from discord import Interaction
 
 from Utils.JsonHandler import lst_of_characters
 from Utils.MessageLib import custom_embed
-from Utils.Ui.Buttons.BaseButton import BaseButton
-from Utils.Ui.Buttons.CharacterButton import CharacterButton
+from Utils.DraftSystem.Buttons.BaseButton import BaseButton
+from Utils.DraftSystem.Buttons.CharacterButton import CharacterButton
 
 
 class GroupButton(BaseButton):

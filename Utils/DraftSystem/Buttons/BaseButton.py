@@ -2,7 +2,7 @@ from discord import ButtonStyle
 from discord.ui import Button
 
 from Utils.JsonHandler import lst_of_characters
-from Utils.Ui.Captain import Captain
+from Utils.DraftSystem.Captain import Captain
 
 
 class BaseButton(Button):

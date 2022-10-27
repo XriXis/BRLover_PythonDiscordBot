@@ -3,7 +3,7 @@ from discord.ui import View
 
 from Utils.JsonHandler import settings
 from Utils.MessageLib import custom_embed
-from Utils.Ui.TimerMessage import TimerMessage
+from Utils.DraftSystem.TimerMessage import TimerMessage
 
 
 class Captain:
