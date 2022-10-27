@@ -37,14 +37,9 @@ class AdminCog(commands.Cog):
 
     @commands.slash_command(description="must reboot bot")
     @commands.has_role(settings["privileged role"])
-    async def change_language(self, ctx, lang: Option(str)):
-        if lang not in settings["support_languages"]:
-            await ctx.respond(embed=custom_embed(False, "chl1", ", ".join(settings["support_languages"])))
-        else:
-            change_lang_in_data(lang)
-            await ctx.respond(embed=custom_embed(True, "chl2"))
-
-    # TODO: listener of connection, that add new guild to "settings". This needier for slash-commands
+    async def change_language(self, ctx, lang: Option(str, choices=["RU", "ENG"])):
+        change_lang_in_data(lang)
+        await ctx.respond(embed=custom_embed(True, "chl2"))
 
 
 def str_without_spaces(text: str) -> str:

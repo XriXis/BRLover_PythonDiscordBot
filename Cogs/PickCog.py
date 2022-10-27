@@ -1,4 +1,4 @@
-from discord import Option
+from discord import Option, OptionChoice
 from discord.ext import commands
 from random import randint
 
@@ -17,11 +17,13 @@ class PickCog(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name="team_pick", description="Give you random team. Keys: standard, CHAOS")
-    async def team_pick(self, ctx, key: Option(str) = None) -> None:
+    async def team_pick(self,
+                        ctx,
+                        key: Option(str, choices=["CHAOS", "3 equal"], default=None)) -> None:
         # TODO: chose of exclude
         if ctx.author != self.bot.user:
             lst_of_keys = [
-                "CHAOS"
+                "CHAOS", "3 equal"
             ]
             match key:
                 case None:
@@ -34,28 +36,37 @@ class PickCog(commands.Cog):
                         group = lst_of_characters[list(lst_of_characters.keys())[randint(0, 2)]]
                         pick += f"\n{group[randint(0, len(group) - 1)]},"
                     pick += "!**||"
+                case "3 equal":
+                    group = lst_of_characters[list(lst_of_characters.keys())[randint(0, 2)]]
+                    pick = f"\n||**{group[randint(0, len(group) - 1)]}," + \
+                           f"\n{group[randint(0, len(group) - 1)]}**|| and..." + \
+                           f"\n||***{group[randint(0, len(group) - 1)]}!***||"
+
                 case _:
                     await ctx.respond(embed=custom_embed(False, "tp1", ', '.join(f'`{x}`' for x in lst_of_keys)))
                     return
 
             await ctx.respond(embed=custom_embed(True, "tp2", pick))
 
-    @commands.slash_command(name="my_pick", description="1 rand hero. Groups separate with spaces")
-    async def ones_pick(self, ctx, group: Option(str) = None) -> None:
-        if group is None:
+    @commands.slash_command(
+        name="my_pick",
+        description="1 rand hero. You also can point to group(s) of wanted hero")
+    async def ones_pick(self,
+                        ctx,
+                        group1: Option(str, choices=["melee", "range", "supports"], default=None),
+                        group2: Option(str, choices=["melee", "range", "supports"], default=None)) -> None:
+        if group1 is None and group2 is None:
             group = ['melee', 'range', 'supports']
+        elif group1 is None:
+            group = [group2]
+        elif group2 is None:
+            group = [group1]
         else:
-            group = list(group.split())
-        if len(group) <= 3:
-            if all(x in lst_of_characters for x in group):
-                sup_lst = [lst_of_characters[x] for x in group]
-                sup_rand_hero = sup_lst[randint(0, len(sup_lst) - 1)]
-                rand_hero = sup_rand_hero[randint(0, len(sup_rand_hero) - 1)]
-                embed = custom_embed(True, "op1", rand_hero)
-            else:
-                embed = custom_embed(False, "op2")
-        else:
-            embed = custom_embed(False, "op3")
+            group = list({group1, group2})
+        sup_lst = [lst_of_characters[x] for x in group]
+        sup_rand_hero = sup_lst[randint(0, len(sup_lst) - 1)]
+        rand_hero = sup_rand_hero[randint(0, len(sup_rand_hero) - 1)]
+        embed = custom_embed(True, "op1", rand_hero)
         await ctx.respond(embed=embed)
 
 
