@@ -18,6 +18,8 @@ class FinalState(AbstractDraftState):
                 *self.draft.captain1.picks,
                 *self.draft.captain2.picks
             ))
+        else:
+            captain.timer.chill()
 
     def to_str(self) -> str:
         return "pick"

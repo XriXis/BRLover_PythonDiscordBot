@@ -1,4 +1,4 @@
-from asyncio import gather
+from asyncio import gather, TimeoutError as ATimeoutError
 
 from discord import member
 from discord.ui import View
@@ -50,20 +50,24 @@ class Draft:
         return view_with_buttons
 
     async def start(self):
-        await gather(
-            self.captain1.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
-                                view=self.generate_buttons(
-                                    lst_of_characters,
-                                    GroupButton,
-                                    self.captain1
-                                )),
-            self.captain2.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
-                                view=self.generate_buttons(
-                                    lst_of_characters,
-                                    GroupButton,
-                                    self.captain2
-                                ))
-        )
+        try:
+            await gather(
+                self.captain1.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                                    view=self.generate_buttons(
+                                        lst_of_characters,
+                                        GroupButton,
+                                        self.captain1
+                                    )),
+                self.captain2.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                                    view=self.generate_buttons(
+                                        lst_of_characters,
+                                        GroupButton,
+                                        self.captain2
+                                    ))
+            )
+        except ATimeoutError:
+            await self.stop()
+            await self.global_channel.send(embed=custom_embed(False, "dr6"))
 
     async def stop(self):
         await self.captain1.stop()
@@ -77,12 +81,14 @@ class Draft:
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,
-                                              self.captain1)),
+                                              self.captain1),
+                                          is_final=isinstance(self._state, FinalState)),
             self.captain2.update_messages(chose_2nd_cap,
                                           chose_1st_cap,
                                           state=self._state.to_str(),
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,
-                                              self.captain2))
+                                              self.captain2),
+                                          is_final=isinstance(self._state, FinalState))
         )

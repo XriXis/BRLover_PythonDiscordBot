@@ -37,6 +37,10 @@
           "You are can't draft with yourself!",
   "draft with bot":
           "Sorry, i can't play BR 😥",
+  "timer header":
+          "Last to end phase: ***%s***",
+  "timer pause":
+          "Wait the opponent... Last: ***%s***",
   "ban":
           "Choose hero what you want to ***ban*** for enemy team.",
   "pick":
@@ -46,7 +50,7 @@
   "dr6":
           "Someone is not ready! (time for draft is out)",
   "dr7":
-          "Teams are next:\n\n%s, %s and %s\n\tVS\n%s, %s and %s",
+          "Teams are next:\n\n***%s, %s*** and ***%s***\n\t🟥VS🟥\n***%s, %s*** and ***%s***",
   "ch1":
           "%s ~~keyword~~: ||Characters||",
   "ch2":
