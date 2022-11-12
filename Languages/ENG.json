@@ -37,6 +37,14 @@
           "List of support language: %s",
   "chl2":
           "Well done!",
+  "who play else":
+          "Who play with you? (lvl play) \n**Remember, play with strangers balance will be worse**",
+  "who afk":
+          "Choose members that not players",
+  "chose again":
+          "And also?",
+  "so much players in voice":
+          "Or you lie me or idn. Choose again who afk"
   "1 capitan in draft":
           "You are can't draft with yourself!",
   "draft with bot":
@@ -88,7 +96,7 @@
   "bvm2":
           "You play with my bites, ask_about_players leave you! (time is end)",
   "bvm3":
-          "And after long thinking, my opinion that commands must be next:\n%s\n\tVS\n%s",
+          "And after long thinking, my opinion that commands must be next:\n🟦Team 1🟦\n%s\n\tVS\n🟥   Team 2🟥\n%s",
   "aap1":
           "Ment members that don't in voice channel. (just ment them)\n```ARM\nWARNING: if you write and dont ment someone - his rating will not include in data-base (if you will write someone write about him next: <nick> <league role> (league_role like in your server if you write incorrect - *default between gold and platinum*))```",
   "aap2":
