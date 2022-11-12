@@ -2,8 +2,6 @@ import asyncio
 
 from discord import message, Embed, Colour
 
-from Utils.JsonHandler import message_texts
-
 
 async def reaction(ctx, flag: bool) -> None:
     if flag:
@@ -28,6 +26,7 @@ def custom_embed(is_blue: bool, key: str, *args: str) -> Embed:
     :param args: Any, params to create format-string, where it used
     :return: Embed
     """
+    from Utils.JsonHandler import message_texts
     if is_blue:
         col = Colour.dark_blue()
     else:

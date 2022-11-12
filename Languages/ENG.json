@@ -21,6 +21,10 @@
     "help":
             "Show this message"
     },
+  "new_member":
+          "Chose game in what you are redy to play with us",
+  "new BR member":
+          "choose your play lvl in BR",
   "chp1":
           "You must give new prefix to change old!",
   "chp2":
