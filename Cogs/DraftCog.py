@@ -2,9 +2,9 @@ from discord import member, Option, Member
 from discord.ext import commands
 
 from BRBot import BRBot
-from Utils.JsonHandler import settings
-from Utils.MessageLib import custom_embed
-from Utils.DraftSystem.Draft import Draft
+from SystemsRealisations.JsonHandler import settings
+from SystemsRealisations.MessageLib import custom_embed
+from SystemsRealisations.DraftSystem.Draft import Draft
 
 
 class DraftCog(commands.Cog):

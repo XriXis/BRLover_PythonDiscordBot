@@ -3,8 +3,8 @@ from itertools import combinations
 
 from discord import Member
 
-from Utils.JsonHandler import settings
-from Utils.SQLHandler import SQLHandler
+from SystemsRealisations.JsonHandler import settings
+from SystemsRealisations.SQLHandler import SQLHandler
 
 
 class Balancer:

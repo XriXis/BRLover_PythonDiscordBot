@@ -3,16 +3,16 @@ from asyncio import gather, TimeoutError as ATimeoutError
 from discord import member
 from discord.ui import View
 
-from Utils.JsonHandler import lst_of_characters, settings
-from Utils.MessageLib import custom_embed
-from Utils.DraftSystem.Buttons.CharacterButton import CharacterButton
-from Utils.DraftSystem.Buttons.GroupButton import GroupButton
-from Utils.DraftSystem.Buttons.ReturnedButton import ReturnedButton
-from Utils.DraftSystem.Captain import Captain
-from Utils.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
-from Utils.DraftSystem.StatesOfDraft.BanState import BanState
-from Utils.DraftSystem.StatesOfDraft.FinalState import FinalState
-from Utils.DraftSystem.StatesOfDraft.PickState import PickState
+from SystemsRealisations.JsonHandler import lst_of_characters, settings
+from SystemsRealisations.MessageLib import custom_embed
+from SystemsRealisations.DraftSystem.Buttons.CharacterButton import CharacterButton
+from SystemsRealisations.DraftSystem.Buttons.GroupButton import GroupButton
+from SystemsRealisations.DraftSystem.Buttons.ReturnedButton import ReturnedButton
+from SystemsRealisations.DraftSystem.Captain import Captain
+from SystemsRealisations.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
+from SystemsRealisations.DraftSystem.StatesOfDraft.BanState import BanState
+from SystemsRealisations.DraftSystem.StatesOfDraft.FinalState import FinalState
+from SystemsRealisations.DraftSystem.StatesOfDraft.PickState import PickState
 
 
 class Draft:

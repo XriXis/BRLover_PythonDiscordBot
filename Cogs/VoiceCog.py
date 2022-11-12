@@ -1,9 +1,9 @@
 from async_timeout import timeout
 from discord.ext import commands
 from BRBot import BRBot
-from Utils.MessageLib import custom_embed
-from Utils.HiddenLeague import balance, convert
-from Utils.JsonHandler import settings
+from SystemsRealisations.MessageLib import custom_embed
+from SystemsRealisations.HiddenLeague import balance, convert
+from SystemsRealisations.JsonHandler import settings
 
 
 class VoiceCog(commands.Cog):

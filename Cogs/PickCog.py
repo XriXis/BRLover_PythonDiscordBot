@@ -3,9 +3,9 @@ from discord.ext import commands
 from random import randint
 
 from BRBot import BRBot
-from Utils.JsonHandler import lst_of_characters
+from SystemsRealisations.JsonHandler import lst_of_characters
 
-from Utils.MessageLib import custom_embed
+from SystemsRealisations.MessageLib import custom_embed
 
 
 class PickCog(commands.Cog):

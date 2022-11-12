@@ -1,4 +1,4 @@
-from Utils.DraftSystem.Captain import Captain
+from SystemsRealisations.DraftSystem.Captain import Captain
 
 
 class AbstractDraftState:

@@ -1,5 +1,5 @@
-from Utils.DraftSystem.Captain import Captain
-from Utils.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
+from SystemsRealisations.DraftSystem.Captain import Captain
+from SystemsRealisations.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
 
 
 class BanState(AbstractDraftState):
