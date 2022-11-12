@@ -2,7 +2,7 @@ import asyncio
 
 from discord import message, Embed, Colour
 
-from SystemsRealisations.JsonHandler import message_texts
+from Utols.JsonHandler import message_texts
 
 
 async def reaction(ctx, flag: bool) -> None:

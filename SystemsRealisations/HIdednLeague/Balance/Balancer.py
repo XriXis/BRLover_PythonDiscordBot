@@ -1,10 +1,8 @@
 from ctypes import Union
 from itertools import combinations
 
-from discord import Member
-
-from SystemsRealisations.JsonHandler import settings
-from SystemsRealisations.SQLHandler import SQLHandler
+from Utols.JsonHandler import settings
+from Utils.SQLHandler import SQLHandler
 
 
 class Balancer:

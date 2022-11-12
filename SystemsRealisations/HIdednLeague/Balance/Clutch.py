@@ -7,8 +7,8 @@ from discord.ui import View
 from SystemsRealisations.HIdednLeague.Balance.Balancer import Balancer
 from SystemsRealisations.HIdednLeague.Balance.Ui.MemberSelectMenu import MembersSelectMenu
 from SystemsRealisations.HIdednLeague.Balance.Ui.SrangersSelectMenu import StrangersSelectMenu
-from SystemsRealisations.JsonHandler import settings
-from SystemsRealisations.MessageLib import custom_embed
+from Utols.JsonHandler import settings
+from Utils.MessageLib import custom_embed
 
 
 class Clutch:

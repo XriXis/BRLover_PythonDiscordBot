@@ -2,8 +2,8 @@ from discord import member, Option, Member
 from discord.ext import commands
 
 from BRBot import BRBot
-from SystemsRealisations.JsonHandler import settings
-from SystemsRealisations.MessageLib import custom_embed
+from Utols.JsonHandler import settings
+from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Draft import Draft
 
 

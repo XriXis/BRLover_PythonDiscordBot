@@ -1,7 +1,7 @@
 from discord import SelectOption, Interaction
 from discord.ui import Select
 
-from SystemsRealisations.MessageLib import custom_embed
+from Utils.MessageLib import custom_embed
 
 
 class MembersSelectMenu(Select):

@@ -1,4 +1,4 @@
-from SystemsRealisations.MessageLib import custom_embed
+from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Captain import Captain
 from SystemsRealisations.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
 

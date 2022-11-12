@@ -3,8 +3,8 @@ from discord.ext import commands
 from discord.ui import View, Select
 
 from BRBot import BRBot
-from SystemsRealisations.MessageLib import custom_embed
-from SystemsRealisations.JsonHandler import change_prefix_in_data, settings, change_lang_in_data
+from Utils.MessageLib import custom_embed
+from Utols.JsonHandler import change_prefix_in_data, settings, change_lang_in_data
 
 
 class AdminCog(commands.Cog):

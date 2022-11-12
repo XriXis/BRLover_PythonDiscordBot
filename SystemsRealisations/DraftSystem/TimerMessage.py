@@ -2,7 +2,7 @@ from asyncio import sleep, create_task, Task, TimeoutError as ATimeoutError, Can
 
 from discord import Message
 
-from SystemsRealisations.MessageLib import custom_embed
+from Utils.MessageLib import custom_embed
 
 
 class TimerMessage:

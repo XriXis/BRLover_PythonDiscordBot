@@ -1,8 +1,8 @@
 from discord import SelectOption, Interaction
 from discord.ui import Select, View
 
-from SystemsRealisations.JsonHandler import settings
-from SystemsRealisations.MessageLib import custom_embed
+from Utols.JsonHandler import settings
+from Utils.MessageLib import custom_embed
 
 
 class StrangersSelectMenu(Select):

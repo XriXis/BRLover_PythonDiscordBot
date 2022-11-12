@@ -1,11 +1,11 @@
-from discord import Option, OptionChoice
+from discord import Option
 from discord.ext import commands
 from random import randint
 
 from BRBot import BRBot
-from SystemsRealisations.JsonHandler import lst_of_characters
+from Utols.JsonHandler import lst_of_characters
 
-from SystemsRealisations.MessageLib import custom_embed
+from Utils.MessageLib import custom_embed
 
 
 class PickCog(commands.Cog):

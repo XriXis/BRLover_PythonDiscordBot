@@ -1,7 +1,7 @@
 from discord import Interaction
 
-from SystemsRealisations.JsonHandler import lst_of_characters
-from SystemsRealisations.MessageLib import custom_embed
+from Utols.JsonHandler import lst_of_characters
+from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Buttons.BaseButton import BaseButton
 from SystemsRealisations.DraftSystem.Buttons.GroupButton import GroupButton
 from SystemsRealisations.DraftSystem.Captain import Captain
