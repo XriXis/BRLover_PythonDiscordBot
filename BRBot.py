@@ -16,8 +16,7 @@ initial_extensions = [f'Cogs.{x}' for x in [
     "VoiceCog",
     "StateCog",
     "DraftCog",
-    "AdminCog",
-    "Sup"
+    "AdminCog"
 ]]
 
 
