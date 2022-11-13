@@ -4,7 +4,7 @@ from discord.ui import View, Select
 
 from BRBot import BRBot
 from Utils.MessageLib import custom_embed
-from Utols.JsonHandler import change_prefix_in_data, settings, change_lang_in_data
+from Utils.JsonHandler import change_prefix_in_data, settings, change_lang_in_data
 
 
 class AdminCog(commands.Cog):
@@ -31,12 +31,11 @@ class AdminCog(commands.Cog):
                 for game in settings["game_roles"]])
 
         async def callback(interaction: Interaction):
-            await member.add_roles(
-                role.id for role in member.guild.roles if (role.name in menu.values and role.name != "Battlerite"))
+            await member.add_roles(*[
+                role for role in member.guild.roles if (role.name in menu.values and role.name != "Battlerite")])
             if "Battlerite" not in menu.values:
                 await interaction.response.edit_message(content="tnx", embed=None, view=None, delete_after=10)
             else:
-                role_view = View()
                 role_menu = Select(
                     placeholder="choose your play lvl in BR",
                     min_values=1,
@@ -46,11 +45,12 @@ class AdminCog(commands.Cog):
                         for league in settings["league_roles"]])
 
                 async def role_callback(role_interaction: Interaction):
-                    await member.add_roles(
-                        role.id for role in member.guild.roles if role.name == role_menu.values[0])
-                    await interaction.response.edit_message(content="tnx", embed=None, view=None, delete_after=10)
-
+                    await member.add_roles(*[
+                        role for role in member.guild.roles if role.name == role_menu.values[0]])
+                    await role_interaction.response.edit_message(content="tnx", embed=None, view=None, delete_after=10)
+                role_view = View()
                 role_menu.callback = role_callback
+                role_view.add_item(role_menu)
                 await interaction.response.edit_message(embed=custom_embed(True, "new BR member"), view=role_view)
 
         menu.callback = callback
@@ -60,7 +60,7 @@ class AdminCog(commands.Cog):
             view=view
         )
 
-    @commands.slash_command(description="for prefix-command")
+    @commands.slash_command(description="can use only moders")
     @commands.has_role(settings["privileged role"])
     async def change_prefix(self, ctx, new_prefix: Option(str)) -> None:
 
@@ -77,7 +77,7 @@ class AdminCog(commands.Cog):
             await self.bot.change_presence_to_help()
         await ctx.respond(embed=embed)
 
-    @commands.slash_command(description="must reboot bot")
+    @commands.slash_command(description="can use only moders")
     @commands.has_role(settings["privileged role"])
     async def change_language(self, ctx, lang: Option(str, choices=["RU", "ENG"])):
         change_lang_in_data(lang)

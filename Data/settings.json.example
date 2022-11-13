@@ -1,0 +1,30 @@
+{
+  "prefix":
+        <setting only to useless help>,
+  "privileged role":
+        <name of moderation role>,
+  "lang":
+        <current language, you also can change it with command>,
+  "time_to_draft_phase_in_seconds":
+        <needier afk time when 2 person in draft. Type()=int>,
+  "league_roles": [
+    <name of roles of Battlerite league of yor server (you must have it)>
+  ],
+  "game_roles": {
+    "Battlerite": "MAIN game of this guild",
+    <another games in what plays members of guild>
+  },
+  "guilds":
+  [
+    <guilds id's>
+  ]
+  "action_between_games": [
+    "play next",
+    "rebalance",
+    "stop"
+  ], # it's bot setting to easy grow. You can delete one of this and no more
+  "support_languages": [
+    "ENG",
+    "RU"
+  ] # it's bot setting to easy grow
+}

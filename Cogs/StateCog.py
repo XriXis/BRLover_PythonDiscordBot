@@ -2,7 +2,7 @@ from discord import Option
 from discord.ext import commands
 
 from BRBot import BRBot
-from Utols.JsonHandler import settings
+from Utils.JsonHandler import settings
 from Utils.MessageLib import custom_embed
 
 

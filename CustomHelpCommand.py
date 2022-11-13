@@ -2,7 +2,7 @@ from discord import Embed
 from discord.ext import commands
 from discord.colour import Colour
 
-from Utols.JsonHandler import settings, message_texts
+from Utils.JsonHandler import settings, message_texts
 
 
 class CustomHelpCommand(commands.HelpCommand):

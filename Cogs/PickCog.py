@@ -3,7 +3,7 @@ from discord.ext import commands
 from random import randint
 
 from BRBot import BRBot
-from Utols.JsonHandler import lst_of_characters
+from Utils.JsonHandler import lst_of_characters
 
 from Utils.MessageLib import custom_embed
 

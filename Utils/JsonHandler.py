@@ -1,6 +1,35 @@
 import json
 import os
 
+
+class JsonHandler:
+    def __init__(self):
+        self.PATH = os.path.dirname(os.path.abspath(__file__))[:-5] + r"Data\state_of_everyone.json"
+        with open(self.PATH, encoding="utf-8") as st:
+            self.state = json.load(st)
+
+    def get_score(self, member_id: int) -> int:
+        return self.state[member_id][1]
+
+    def update_score(self, name: str, new_score: int) -> None:
+        ok = False
+        for id_ in self.state:
+            if self.state[id_] == name:
+                ok = True
+                break
+        if ok:
+            self.state[id_][1] = new_score
+            with open(self.PATH, encoding="utf-8") as st:
+                json.dump(self.state, st)
+        else:
+            raise AttributeError(f"Unknown name {name}. Use JsonHandler().new_member(<id>, {name}, {new_score}) before")
+
+    def new_member(self, id_: int, name: str, score: int) -> None:
+        self.state[id_] = [name, score]
+        with open(self.PATH, encoding="utf-8") as st:
+            json.dump(self.state, st)
+
+
 JSON_DATA = os.path.dirname(os.path.abspath(__file__))[:-5] + r"Data\settings.json"
 LANG = os.path.dirname(os.path.abspath(__file__))[:-5] + r"Languages\%s.json"
 

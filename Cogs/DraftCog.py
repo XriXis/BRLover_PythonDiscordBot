@@ -2,7 +2,7 @@ from discord import member, Option, Member
 from discord.ext import commands
 
 from BRBot import BRBot
-from Utols.JsonHandler import settings
+from Utils.JsonHandler import settings
 from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Draft import Draft
 
@@ -16,7 +16,7 @@ class DraftCog(commands.Cog):
         self.bot: BRBot = bot
 
     @commands.has_role(settings["privileged role"])
-    @commands.slash_command(name="draft_between", description="start draft between 2 members of your guild")
+    @commands.slash_command(name="draft_between", description="Can use only moders.")
     async def owner_draft(self, ctx, captain1: Option(Member), captain2: Option(Member)):
         await self.draft(ctx, captain1, captain2)
 

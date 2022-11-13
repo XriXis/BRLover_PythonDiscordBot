@@ -25,6 +25,8 @@
           "Chose game in what you are redy to play with us",
   "new BR member":
           "choose your play lvl in BR",
+  "member without role":
+          "Member %s haven't league role. %s, please, fix it. After moderation influence, reload system that cant work without roles.",
   "chp1":
           "You must give new prefix to change old!",
   "chp2":
@@ -42,9 +44,13 @@
   "who afk":
           "Choose members that not players",
   "chose again":
-          "And also?",
+          "And also? For now i have next: ***%s***",
+  "who won":
+          "What team are winner?",
+  "what next":
+          "Tnx for answer. Next your action is?",
   "so much players in voice":
-          "Or you lie me or idn. Choose again who afk"
+          "Or you lie me or idn. Choose again who afk",
   "1 capitan in draft":
           "You are can't draft with yourself!",
   "draft with bot":

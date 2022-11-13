@@ -9,7 +9,7 @@ from discord.ext.bridge import \
     Bot as BotBase
 
 from CustomHelpCommand import CustomHelpCommand
-from Utols.JsonHandler import settings
+from Utils.JsonHandler import settings
 
 initial_extensions = [f'Cogs.{x}' for x in [
     "PickCog",

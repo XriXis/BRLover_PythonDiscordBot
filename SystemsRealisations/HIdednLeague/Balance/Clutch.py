@@ -1,21 +1,17 @@
-from asyncio import sleep
-from ctypes import Union
-
 from discord import Member
 from discord.ui import View
 
 from SystemsRealisations.HIdednLeague.Balance.Balancer import Balancer
 from SystemsRealisations.HIdednLeague.Balance.Ui.MemberSelectMenu import MembersSelectMenu
 from SystemsRealisations.HIdednLeague.Balance.Ui.SrangersSelectMenu import StrangersSelectMenu
-from Utols.JsonHandler import settings
 from Utils.MessageLib import custom_embed
 
 
 class Clutch:
     def __init__(self,
                  members: list[Member],
-                 strangers: list[Union(settings["league_roles"])],
-                 channel):
+                 channel,
+                 strangers: dict[str, str]):
         self.members = members
         self.strangers = strangers
         self.channel = channel
@@ -46,7 +42,7 @@ class Clutch:
 
     async def start_balance(self) -> None:
         balancer = Balancer(self)
-        clutch = balancer.balance()
-        self.channel.send(embed=custom_embed(True, "bvm3", ", ".join(clutch[0]+clutch[1]), ", ".join(clutch[1])))
-        await sleep(10*60)
-        # TODO hidden league
+        clutch = await balancer.format_balance()
+        await self.channel.send(embed=custom_embed(True, "bvm3", ", ".join(clutch[0]), ", ".join(clutch[1])),
+                                delete_after=balancer.afk_time * 2)
+        await balancer.next_game()

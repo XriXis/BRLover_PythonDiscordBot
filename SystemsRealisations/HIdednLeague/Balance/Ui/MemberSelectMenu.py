@@ -19,13 +19,13 @@ class MembersSelectMenu(Select):
 
     async def callback(self, interaction: Interaction):
         if len(self.clutch.members) - len(self.values) > 6 and "no one" not in self.values:
-            await interaction.response.send_message(embed=custom_embed(False, "so much players in voice"),
+            await interaction.response.edit_message(embed=custom_embed(False, "so much players in voice"),
                                                     delete_after=15)
         else:
             if "no one" not in self.values:
                 for name in self.values:
                     self.clutch.exclude(name)
-            await interaction.response.edit_message("Ok", delete_after=5)
+            await interaction.response.edit_message(content="Ok", delete_after=1)
             if len(self.clutch.members) - len([x for x in self.values if x != "no one"]) < 6:
                 await self.clutch.who_else()
                 await interaction.message.delete()

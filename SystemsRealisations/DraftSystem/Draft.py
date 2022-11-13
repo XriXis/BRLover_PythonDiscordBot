@@ -3,7 +3,7 @@ from asyncio import gather, TimeoutError as ATimeoutError
 from discord import member
 from discord.ui import View
 
-from Utols.JsonHandler import lst_of_characters, settings
+from Utils.JsonHandler import lst_of_characters, settings
 from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Buttons.CharacterButton import CharacterButton
 from SystemsRealisations.DraftSystem.Buttons.GroupButton import GroupButton

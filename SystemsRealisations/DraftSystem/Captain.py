@@ -1,7 +1,7 @@
 from discord import member, Embed, Colour, Message
 from discord.ui import View
 
-from Utols.JsonHandler import settings
+from Utils.JsonHandler import settings
 from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.TimerMessage import TimerMessage
 
