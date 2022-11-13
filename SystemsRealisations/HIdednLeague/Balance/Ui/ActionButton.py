@@ -33,7 +33,7 @@ class ActionButton(Button):
             case "rebalance":
                 await interaction.response.edit_message(
                     embed=custom_embed(True,
-                                       "bvm3",
+                                       ,
                                        ", ".join(self.balancer.balance_teams()[0]),
                                        ", ".join(self.balancer.balance_teams()[1])),
                     view=None)

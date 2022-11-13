@@ -26,7 +26,7 @@ class MembersSelectMenu(Select):
                 for name in self.values:
                     self.clutch.exclude(name)
             await interaction.response.edit_message(content="Ok", delete_after=1)
-            if len(self.clutch.members) - len([x for x in self.values if x != "no one"]) < 6:
+            if len(self.clutch.members) < 6:
                 await self.clutch.who_else()
                 await interaction.message.delete()
             else:

@@ -49,12 +49,12 @@ class Balancer:
 
     def _balance(self) -> tuple[list[str], list[str]]:
         end_clutch = []
-        control_num = -1
+        control_num = 10**10
         players = self.teams["Team1"] | self.teams["Team2"]
         average_command_skill = sum(players.values()) / 2
         for control_clutch in combinations(players, r=3):
             x = abs(sum(players[x] for x in control_clutch) - average_command_skill)
-            if control_num < x:
+            if control_num > x:
                 end_clutch = control_clutch
                 control_num = x
         self.teams = {
@@ -110,7 +110,7 @@ class Balancer:
 
     @staticmethod
     def _convert(role: str) -> int:
-        lst_of_cost = list(range(500, 3501, 500))
+        lst_of_cost = list(range(3500, 499, -500))
         try:
             result = lst_of_cost[settings["league_roles"].index(role)]
         except ValueError:

@@ -19,7 +19,7 @@ class WinnerButton(Button):
     async def callback(self, interaction: Interaction):
         if self.team != 0:
             await self.balancer.update_team_score(self.team)
-        view = View()
+        view = View(timeout=10*60)
         for action in settings["action_between_games"]:
             view.add_item(ActionButton(action, self.balancer))
         await interaction.response.edit_message(

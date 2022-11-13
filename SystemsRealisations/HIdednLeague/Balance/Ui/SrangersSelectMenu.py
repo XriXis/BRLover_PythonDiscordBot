@@ -24,7 +24,7 @@ class StrangersSelectMenu(Select):
                                placeholder="XriXis, for example",
                                min_length=0,
                                max_length=25)
-        modal = Modal(name_input, title="Stranger name")
+        modal = Modal(name_input, title="Stranger name. (>3 char)")
 
         async def modal_callback(m_interaction: Interaction) -> None:
             self.clutch.strangers[
@@ -46,7 +46,6 @@ class StrangersSelectMenu(Select):
                     view=view
                 )
             else:
-
                 await m_interaction.response.edit_message(content="all good", delete_after=1)
                 await self.clutch.start_balance()
             self.values.clear()
