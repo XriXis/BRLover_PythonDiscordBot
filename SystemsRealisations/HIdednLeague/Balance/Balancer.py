@@ -69,7 +69,6 @@ class Balancer:
         if self.teams == {}:
             raise RuntimeError("Work with teams before creating them. Call Balancer().balance() to create teams")
         else:
-            winner_team -= 1
             control_num = 3500 - (
                     sum(self.teams["Team1"][player] for player in self.teams["Team1"]) -
                     sum(self.teams["Team2"][player] for player in self.teams["Team2"]))
@@ -77,9 +76,9 @@ class Balancer:
                 player: (self.teams[f"Team{winner_team}"][player] + control_num)
                 for player in self.teams[f"Team{winner_team}"]
             }
-            self.teams[f"Team{1 - winner_team}"] = {
-                player: (self.teams[f"Team{1 - winner_team}"][player] - control_num)
-                for player in self.teams[f"Team{1 - winner_team}"]
+            self.teams[f"Team{3 - winner_team}"] = {
+                player: (self.teams[f"Team{3 - winner_team}"][player] - control_num)
+                for player in self.teams[f"Team{3 - winner_team}"]
             }
             clutch = self.teams["Team1"] | self.teams["Team2"]
             for member in self.clutch.members:
@@ -90,14 +89,15 @@ class Balancer:
         clutch = self.teams["Team1"] | self.teams["Team2"]
         member_role = [role for role in member.roles if role in settings["league_role"]][0]
         member_league = member_role.name
-        role_num = settings["league_roles"].index(member_league) * 500 + 500
+        role_num = (5 - settings["league_roles"].index(member_league)) * 500 + 500
         if clutch[member.name] < role_num:
             role_num -= 500
         elif clutch[member.name] >= role_num + 500 and role_num < 3500:
             role_num += 500
         else:
             return
-        new_role = [role for role in member.guild.roles if role.name == settings["league_roles"][role_num // 500]][0]
+        new_role = [role for role in member.guild.roles if role.name == settings["league_roles"][5 -
+                                                                                                 (role_num // 500)]][0]
         await member.remove_roles(member_role)
         await member.add_roles(new_role)
 
