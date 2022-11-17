@@ -16,7 +16,7 @@ class ActionButton(Button):
             return result
 
         colours = smart_dict(settings["action_between_games"],
-                             [ButtonStyle.green, ButtonStyle.primary, ButtonStyle.gray, ButtonStyle.red])
+                             [ButtonStyle.green, ButtonStyle.primary, ButtonStyle.red])
         super().__init__(
             label=label,
             style=colours[label],
@@ -33,7 +33,7 @@ class ActionButton(Button):
             case "rebalance":
                 await interaction.response.edit_message(
                     embed=custom_embed(True,
-                                       ,
+                                       "bvm3",
                                        ", ".join(self.balancer.balance_teams()[0]),
                                        ", ".join(self.balancer.balance_teams()[1])),
                     view=None)
