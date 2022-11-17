@@ -49,7 +49,7 @@ class Balancer:
 
     def _balance(self) -> tuple[list[str], list[str]]:
         end_clutch = []
-        control_num = 10**10
+        control_num = 10 ** 10
         players = self.teams["Team1"] | self.teams["Team2"]
         average_command_skill = sum(players.values()) / 2
         for control_clutch in combinations(players, r=3):
@@ -69,15 +69,19 @@ class Balancer:
         if self.teams == {}:
             raise RuntimeError("Work with teams before creating them. Call Balancer().balance() to create teams")
         else:
-            control_num = 3500 - (
-                    sum(self.teams["Team1"][player] for player in self.teams["Team1"]) -
-                    sum(self.teams["Team2"][player] for player in self.teams["Team2"]))
+            team_skills = [
+                sum(self.teams["Team1"][player] for player in self.teams["Team1"]),
+                sum(self.teams["Team2"][player] for player in self.teams["Team2"])]
+            skill_difference = abs(team_skills[0] - team_skills[1])
+            control_num = min(skill_difference, abs(3500 - skill_difference))
+            dD = control_num if team_skills[winner_team - 1] > team_skills[1 - (winner_team - 1)] else abs(
+                3500 - control_num)
             self.teams[f"Team{winner_team}"] = {
-                player: (self.teams[f"Team{winner_team}"][player] + control_num)
+                player: self.teams[f"Team{winner_team}"][player] + dD
                 for player in self.teams[f"Team{winner_team}"]
             }
             self.teams[f"Team{3 - winner_team}"] = {
-                player: (self.teams[f"Team{3 - winner_team}"][player] - control_num)
+                player: self.teams[f"Team{3 - winner_team}"][player] - dD
                 for player in self.teams[f"Team{3 - winner_team}"]
             }
             clutch = self.teams["Team1"] | self.teams["Team2"]
