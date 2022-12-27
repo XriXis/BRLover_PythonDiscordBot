@@ -72,7 +72,7 @@ class AdminCog(commands.Cog):
             embed = custom_embed(False, "chp3")
         else:
             embed = custom_embed(True, "chp4")
-            change_prefix_in_data(new_prefix)
+            change_prefix_in_data(new_prefix, ctx.guild.id)
             self.bot.command_prefix = new_prefix
             await self.bot.change_presence_to_help()
         await ctx.respond(embed=embed)
@@ -80,14 +80,14 @@ class AdminCog(commands.Cog):
     @commands.slash_command(description="can use only moders")
     @commands.has_role(settings["privileged role"])
     async def change_language(self, ctx, lang: Option(str, choices=["RU", "ENG"])):
-        change_lang_in_data(lang)
+        change_lang_in_data(lang, ctx.guild.id)
         await ctx.respond(embed=custom_embed(True, "chl2"))
 
 
 def str_without_spaces(text: str) -> str:
     result = ""
     for char in text:
-        if char != "":
+        if char != " ":
             result += char
     return result
 

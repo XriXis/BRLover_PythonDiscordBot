@@ -17,6 +17,6 @@ class ReturnedButton(BaseButton):
                                                                                  GroupButton,
                                                                                  self.captain),
                                                 embed=custom_embed(
-                                                    self.draft._state.to_str() == "pick",
-                                                    self.draft._state.to_str()
+                                                    str(self.draft._state) == "pick",
+                                                    str(self.draft._state)
                                                 ))

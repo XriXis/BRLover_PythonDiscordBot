@@ -14,9 +14,9 @@ class CharacterButton(BaseButton):
         await interaction.response.edit_message(content=None,
                                                 view=None,
                                                 embed=custom_embed(
-                                                    self.draft._state.to_str() == "pick",
+                                                    str(self.draft._state) == "pick",
                                                     "empty",
                                                     f"🟩 you ***"
-                                                    f"{self.draft._state.to_str()}"
+                                                    f"{str(self.draft._state)}"
                                                     f"*** {self.label} 🟩"))
         await self.draft.handle(self.label, self.captain)

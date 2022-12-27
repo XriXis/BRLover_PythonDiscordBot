@@ -1,0 +1,11 @@
+{
+  "action_between_games": [
+    "play next",
+    "rebalance",
+    "stop"
+  ],
+  "support_languages": [
+    "ENG",
+    "RU"
+  ]
+}

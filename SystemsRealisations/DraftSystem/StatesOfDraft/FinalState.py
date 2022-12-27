@@ -1,9 +1,9 @@
+from SystemsRealisations.DraftSystem.StatesOfDraft.PickState import PickState
 from Utils.MessageLib import custom_embed
 from SystemsRealisations.DraftSystem.Captain import Captain
-from SystemsRealisations.DraftSystem.StatesOfDraft.AbstractDraftState import AbstractDraftState
 
 
-class FinalState(AbstractDraftState):
+class FinalState(PickState):
     async def handle(self, character: str, captain: Captain):
         captain.picks.append(character)
         if len(self.draft.captain1.picks) == len(self.draft.captain2.picks):
@@ -21,10 +21,3 @@ class FinalState(AbstractDraftState):
             ))
         else:
             captain.timer.chill()
-
-    def to_str(self) -> str:
-        return "pick"
-
-    def is_character_occupied(self, character: str, captain: Captain) -> bool:
-        return character in captain.bans \
-               or character in captain.picks

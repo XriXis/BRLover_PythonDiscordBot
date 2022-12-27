@@ -15,7 +15,7 @@ class PickState(AbstractDraftState):
         else:
             captain.timer.chill()
 
-    def to_str(self) -> str:
+    def __str__(self) -> str:
         return "pick"
 
     def is_character_occupied(self, character: str, captain: Captain) -> bool:

@@ -1,2 +1,0 @@
-In there must locate json or database with all support languages. It doesn't here because for this must realise locate
-functionality and message-creator with needier languages names and structure.

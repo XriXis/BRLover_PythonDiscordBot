@@ -52,13 +52,13 @@ class Draft:
     async def start(self):
         try:
             await gather(
-                self.captain1.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                self.captain1.start(embed=custom_embed(str(self._state) == "pick", str(self._state)),
                                     view=self.generate_buttons(
                                         lst_of_characters,
                                         GroupButton,
                                         self.captain1
                                     )),
-                self.captain2.start(embed=custom_embed(self._state.to_str() == "pick", self._state.to_str()),
+                self.captain2.start(embed=custom_embed(str(self._state) == "pick", str(self._state)),
                                     view=self.generate_buttons(
                                         lst_of_characters,
                                         GroupButton,
@@ -77,7 +77,7 @@ class Draft:
         await gather(
             self.captain1.update_messages(chose_1st_cap,
                                           chose_2nd_cap,
-                                          state=self._state.to_str(),
+                                          state=str(self._state),
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,
@@ -85,7 +85,7 @@ class Draft:
                                           is_final=is_final),
             self.captain2.update_messages(chose_2nd_cap,
                                           chose_1st_cap,
-                                          state=self._state.to_str(),
+                                          state=str(self._state),
                                           view=self.generate_buttons(
                                               lst_of_characters,
                                               GroupButton,

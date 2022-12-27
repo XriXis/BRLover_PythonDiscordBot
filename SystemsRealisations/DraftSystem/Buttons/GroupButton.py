@@ -13,9 +13,9 @@ class GroupButton(BaseButton):
                                                                                  CharacterButton,
                                                                                  self.captain),
                                                 embed=custom_embed(
-                                                    self.draft._state.to_str() == "pick",
+                                                    str(self.draft._state) == "pick",
                                                     "empty",
                                                     f"✅ you choose to **"
-                                                    f"{self.draft._state.to_str()}**"
+                                                    f"{str(self.draft._state)}**"
                                                     f" {self.label} characters ✅"
                                                 ))

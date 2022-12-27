@@ -66,7 +66,7 @@ class Balancer:
         return list(self.teams["Team1"].keys()), list(self.teams["Team2"].keys())
 
     async def update_team_score(self, winner_team: int) -> None:
-        if self.teams == {}:
+        if not self.teams:
             raise RuntimeError("Work with teams before creating them. Call Balancer().balance() to create teams")
         else:
             team_skills = [
